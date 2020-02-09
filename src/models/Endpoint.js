@@ -40,6 +40,7 @@ class Endpoint extends Model {
 		fetch(this.url)
 			.then(response => response.json())
 			.then(json => {
+				Std.Log(`[Endpoint] refreshed '${this.url}'`);
 				this.data = json;
 				if (json.hasOwnProperty("cache") && json.cache.hasOwnProperty("schedule"))
 					this.setTTL(json.cache.schedule);

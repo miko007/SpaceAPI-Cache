@@ -2,6 +2,7 @@
 
 const Express = require("express");
 
+const Std       = require("./Std");
 const Endpoints = require("./models/Endpoints");
 
 class App {
@@ -39,7 +40,16 @@ class App {
 			response.send(JSON.stringify(this.endpoints.endpoints[request.params.key].data[request.params.subkey], null, 4));
 		});
 
-		this.express.listen(this.port);
+		this.express.listen(this.port).on("error", error => {
+			switch (error.code) {
+				case "EADDRINUSE":
+					Std.Log(`[App] ERROR selected port '${this.port}' is already in use.`, Std.LogLevel.FATAL);
+					break;
+				default:
+					Std.Log(`[App] ERROR could not start server: ${error}`, Std.LogLevel.FATAL);
+					break;
+			}
+		});
 	}
 }
 

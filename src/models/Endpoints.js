@@ -25,7 +25,7 @@ class Endpoints extends Model {
 		fetch(Package.directoryURL)
 			.then(response => response.json())
 			.then(json => {
-				const endpoints    = {};
+				const endpoints = {};
 				for (const [key, url] of Object.entries(json)) {
 					fetch(url)
 						.then(response => response.json())
@@ -38,8 +38,8 @@ class Endpoints extends Model {
 							this.endpoints[slugify(key)] = endpoint;
 						})
 						.catch(error => {
-							Std.Log(`[Enpoints] ERROR fetching '${url}': ${error}`, Std.LogLevel.ERROR);
-							endpoints[key] = null;
+							Std.Log(`[Enpoints] WARNING fetching '${url}': ${error}`, Std.LogLevel.WARN);
+							delete endpoints[key];
 						});
 				}
 				this.endpoints = endpoints;
@@ -50,6 +50,8 @@ class Endpoints extends Model {
 
 	refresh() {
 		for (let [key, endpoint] of Object.entries(this.endpoints)) {
+			if (endpoint === null)
+				continue;
 			if (endpoint.ttl !== null && this.updates % endpoint.ttl !== 0)
 				continue;
 			else if (endpoint.ttl === null && this.updates % 5 * Std.Time.MINUTES !== 0)
