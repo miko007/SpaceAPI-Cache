@@ -13,7 +13,7 @@ class Std {
 
 	static Log(message, level) {
 		level = level || Std.LogLevel.NORMAL;
-		let date = new Date();
+		let date   = new Date();
 		let render = null;
 
 		switch (level) {
