@@ -1,0 +1,32 @@
+{
+  "name": "spaceapi-cache",
+  "version": "0.0.1",
+  "description": "an in memory cache server for all known SpaceAPI endpoints",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miko007/SpaceAPI-Cache.git"
+  },
+  "keywords": [
+    "spaceapi",
+    "cache",
+    "hackerspace",
+    "makerspace",
+    "server",
+    "in",
+    "memory"
+  ],
+  "author": "Michael Ochmann <miko@massivedynamic.eu>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/miko007/SpaceAPI-Cache/issues"
+  },
+  "homepage": "https://github.com/miko007/SpaceAPI-Cache#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  }
+}
