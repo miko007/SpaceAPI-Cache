@@ -4,12 +4,19 @@ const Express = require("express");
 
 const Std       = require("./Std");
 const Endpoints = require("./models/Endpoints");
+const Validator = require("./Validator");
 
 class App {
 	constructor(port = 9000) {
 		this.port      = port;
 		this.express   = Express();
 		this.endpoints = new Endpoints();
+		this.validator = new Validator();
+
+		this.express.use((request, response, next) => {
+			response.set("Content-type", "application/json");
+			next();
+		});
 
 		this.express.get("/", (request, response) => {
 			response.set("Content-type", "application/json");
@@ -25,6 +32,21 @@ class App {
 				return;
 			}
 			response.send(JSON.stringify(this.endpoints.endpoints[request.params.key], null, 4));
+		});
+
+		this.express.get("/:key/valid", (request, response) => {
+			let validation = null;
+			let errors     = [];
+			try {
+				validation = this.validator.validate(this.endpoints.endpoints[request.params.key].data);
+				errors     = validation.errors === null ? [] : validation.errors;
+			} catch (error) {
+
+			}
+			response.send(JSON.stringify({
+				valid  : validation.valid,
+				errors
+			}, null, 4));
 		});
 
 		this.express.get("/:key/:subkey", (request, response) => {
