@@ -13,6 +13,8 @@ class Std {
 
 	static Log(message, level) {
 		level = level || Std.LogLevel.NORMAL;
+		if (process.env.MODE === "production" && (level === Std.LogLevel.NORMAL || level === Std.LogLevel.WARN))
+			return;
 		let date   = new Date();
 		let render = null;
 

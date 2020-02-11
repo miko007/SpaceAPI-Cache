@@ -17,6 +17,8 @@ class Validator {
 	validate(spaceAPIObject) {
 		let validator;
 
+		if (!spaceAPIObject.hasOwnProperty("api"))
+			return null;
 		switch (spaceAPIObject.api) {
 			case "0.12":
 				validator = this.validator["12"];

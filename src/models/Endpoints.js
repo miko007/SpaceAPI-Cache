@@ -22,6 +22,7 @@ class Endpoints extends Model {
 	}
 
 	fetchEndpoints() {
+		Std.Log(`[Endpoints] fetching directory`, Std.LogLevel.INFO);
 		fetch(Package.directoryURL)
 			.then(response => response.json())
 			.then(json => {
@@ -49,6 +50,7 @@ class Endpoints extends Model {
 	}
 
 	refresh() {
+		Std.Log(`[Endpoints] refreshing endpoints`, Std.LogLevel.INFO);
 		for (let [key, endpoint] of Object.entries(this.endpoints)) {
 			if (endpoint === null)
 				continue;
