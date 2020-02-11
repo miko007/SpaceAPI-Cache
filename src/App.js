@@ -35,18 +35,7 @@ class App {
 		});
 
 		this.express.get("/:key/valid", (request, response) => {
-			let validation = null;
-			let errors     = [];
-			try {
-				validation = this.validator.validate(this.endpoints.endpoints[request.params.key].data);
-				errors     = validation.errors === null ? [] : validation.errors;
-			} catch (error) {
-
-			}
-			response.send(JSON.stringify({
-				valid  : validation.valid,
-				errors
-			}, null, 4));
+			response.send(JSON.stringify(this.validator.validate(this.endpoints.endpoints[request.params.key].data), null, 4));
 		});
 
 		this.express.get("/:key/:subkey", (request, response) => {
