@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/miko007/SpaceAPI-Cache#readme",
   "dependencies": {
-    "ajv": "^6.11.0",
+    "ajv": "^6.12.3",
     "chalk": "^3.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
